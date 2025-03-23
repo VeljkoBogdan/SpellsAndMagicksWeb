@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import io.github.illuminatijoe.spellsandmagicks.SpellsAndMagicksGame;
 import io.github.illuminatijoe.spellsandmagicks.game.Game;
 import io.github.illuminatijoe.spellsandmagicks.game.entities.components.ExperienceComponent;
+import io.github.illuminatijoe.spellsandmagicks.game.entities.systems.AtomicBombShootingSystem;
 import io.github.illuminatijoe.spellsandmagicks.graphics.AssetLoader;
 
 public class GameScreen implements Screen {
@@ -21,6 +22,7 @@ public class GameScreen implements Screen {
     private final Skin skin;
     private final Label timerLabel;
     private final Label levelLabel;
+    private final Label bombLabel;
 
     private float survivalTime = 0f; // Time in seconds
 
@@ -33,6 +35,7 @@ public class GameScreen implements Screen {
         this.skin = new Skin(Gdx.files.internal("textures/ui/pixthulhu-ui.json"));
         this.timerLabel = new Label("", skin);
         this.levelLabel = new Label("", skin);
+        this.bombLabel = new Label("", skin);
     }
 
     @Override
@@ -57,6 +60,7 @@ public class GameScreen implements Screen {
 
         drawSurvivalTimer();
         drawPlayerLevel();
+        if (gameLogic.engine.getSystem(AtomicBombShootingSystem.class) != null) drawBombCooldown();
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) game.setScreen(mainMenuScreen);
     }
@@ -89,6 +93,19 @@ public class GameScreen implements Screen {
 
             levelLabel.setPosition(labelX, labelY);
             levelLabel.draw(batch, 1f);
+        batch.end();
+    }
+
+    private void drawBombCooldown() {
+        batch.begin();
+            String text = "Atomic Bomb Cooldown: " + (int) gameLogic.engine.getSystem(AtomicBombShootingSystem.class).timer + "s";
+            bombLabel.setText(text);
+
+            float labelX = 20;
+            float labelY = 40;
+
+            bombLabel.setPosition(labelX, labelY);
+            bombLabel.draw(batch, 1f);
         batch.end();
     }
 
