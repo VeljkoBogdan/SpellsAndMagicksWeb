@@ -8,9 +8,9 @@ import io.github.illuminatijoe.spellsandmagicks.game.entities.systems.ExplosionS
 public class ExplosionMagick implements Spell {
     public String name = "Explosion Magick";
     public String description = "All your spells summon an explosion on hit that deals damage \n\n" +
-        "Upgrades deal 25% more damage";
+        "Upgrades deal 30% more damage";
     public static ExplosionMagickComponent explosionMagickComponent =
-        new ExplosionMagickComponent(30f, 110f);
+        new ExplosionMagickComponent(20f, 115f);
     public static ExplosionSystem explosionSystem = new ExplosionSystem();
 
     @Override

@@ -7,9 +7,9 @@ import io.github.illuminatijoe.spellsandmagicks.game.entities.components.Electri
 public class ElectricityAuraSpell implements Spell {
     public static String name = "Electricity Aura Spell";
     public static ElectricityAuraComponent electricityAuraComponent =
-        new ElectricityAuraComponent(170, 40f, 0.75f);
-    private static String description = "Summons an aura of electricity that deals constant damage to nearby enemies\n" +
-        "Upgrades increase damage by 30% and tick rate by 10%";
+        new ElectricityAuraComponent(175, 25f, 0.8f);
+    private static String description = "Summons an aura of electricity that deals constant damage to nearby enemies\n\n" +
+        "Upgrades increase damage by 40% and tick rate by 12%";
 
     @Override
     public EntitySystem getEntityMovingSystem() {

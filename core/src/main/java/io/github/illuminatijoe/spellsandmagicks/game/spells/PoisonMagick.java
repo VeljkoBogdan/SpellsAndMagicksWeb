@@ -8,9 +8,9 @@ import io.github.illuminatijoe.spellsandmagicks.game.entities.systems.PoisonSyst
 public class PoisonMagick implements Spell{
     public String name = "Poison Magick";
     public String description = "All spells apply a poison effect that deals periodical damage over 5 seconds\n\n" +
-        "Upgrades increase damage by 25% and duration by 25%";
+        "Upgrades increase damage by 35% and duration by 20%";
     public PoisonSystem poisonSystem = new PoisonSystem();
-    public PoisonMagickComponent poisonMagickComponent = new PoisonMagickComponent(18f, 5f, 0.4f);
+    public PoisonMagickComponent poisonMagickComponent = new PoisonMagickComponent(35f, 3f, 0.4f);
 
     @Override
     public EntitySystem getEntityMovingSystem() {

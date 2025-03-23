@@ -20,6 +20,7 @@ public class AssetLoader {
     public static Animation<TextureRegion> electricityAuraAnimation;
     public static Animation<TextureRegion> explosionAnimation;
     public static Animation<TextureRegion> batAnimation;
+    public static Animation<TextureRegion> boulderAnimation;
 
     private AssetLoader() {
         // Private constructor to prevent instantiation
@@ -87,18 +88,23 @@ public class AssetLoader {
             entityAtlas.findRegions("bat"),
             Animation.PlayMode.LOOP
         );
+        boulderAnimation = new Animation<>(
+            0.5f,
+            entityAtlas.findRegions("boulder"),
+            Animation.PlayMode.LOOP
+        );
 
         System.out.println("Loaded animations!");
     }
 
     private static void createAtlases() {
-        //packTextures();
+        packTextures();
         entityAtlas = new TextureAtlas("textures/entities/entities.atlas");
         projectileAtlas = new TextureAtlas("textures/projectiles/projectiles.atlas");
         System.out.println("Atlases created!");
     }
 
-//    private static void packTextures() {
+    private static void packTextures() {
 //        TexturePacker.process(
 //            "textures/entities",
 //            "textures/entities",
@@ -112,7 +118,7 @@ public class AssetLoader {
 //        );
 //
 //        System.out.println("Textures packed!");
-//    }
+    }
 
     public static void disposeStatic() {
         entityAtlas.dispose();

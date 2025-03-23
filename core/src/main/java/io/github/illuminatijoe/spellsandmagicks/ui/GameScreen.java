@@ -95,8 +95,11 @@ public class GameScreen implements Screen {
     private String formatTime(float timeInSeconds) {
         int minutes = (int) (timeInSeconds / 60);
         int seconds = (int) (timeInSeconds % 60);
-        String time = minutes + ":" + seconds;
-        return time;
+
+        String minutesStr = minutes < 10 ? "0" + minutes : String.valueOf(minutes);
+        String secondsStr = seconds < 10 ? "0" + seconds : String.valueOf(seconds);
+
+        return minutesStr + ":" + secondsStr;
     }
 
     @Override

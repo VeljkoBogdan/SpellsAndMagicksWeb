@@ -38,7 +38,6 @@ public class Game implements Disposable {
         this.gameScreen = gameScreen;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        camera.zoom *= 1.0f;
         camera.update();
 
         // Load assets
@@ -76,13 +75,12 @@ public class Game implements Disposable {
         engine.addSystem(new RegenSystem());
         engine.addSystem(new DamageFlashSystem());
         engine.addSystem(new PoisonFlashSystem());
-
     }
 
     public void render() {
-        deltaTime = paused ? 0f : Gdx.graphics.getDeltaTime();
+        deltaTime = Gdx.graphics.getDeltaTime();
 
-        engine.update(deltaTime);
+        if (!paused) engine.update(deltaTime);
     }
 
     public void playerKilled() {

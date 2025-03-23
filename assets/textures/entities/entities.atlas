@@ -1,6 +1,6 @@
 
 entities.png
-size: 256, 128
+size: 512, 128
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
@@ -13,7 +13,7 @@ bat
   index: 1
 bat
   rotate: false
-  xy: 138, 68
+  xy: 402, 68
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -25,9 +25,37 @@ bat
   orig: 32, 32
   offset: 0, 0
   index: 3
+boulder
+  rotate: false
+  xy: 2, 36
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+boulder
+  rotate: false
+  xy: 68, 36
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 2
+boulder
+  rotate: false
+  xy: 134, 36
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 3
+boulder
+  rotate: false
+  xy: 200, 36
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 4
 slime_walk
   rotate: false
-  xy: 172, 68
+  xy: 436, 68
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -41,42 +69,42 @@ slime_walk
   index: 2
 wizard_idle
   rotate: false
-  xy: 2, 36
+  xy: 266, 36
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: 1
 wizard_walk
   rotate: false
-  xy: 2, 36
+  xy: 266, 36
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: 2
 wizard_idle
   rotate: false
-  xy: 36, 36
+  xy: 300, 36
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: 2
 wizard_walk
   rotate: false
-  xy: 36, 36
+  xy: 300, 36
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: 4
 wizard_walk
   rotate: false
-  xy: 70, 36
+  xy: 334, 36
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: 1
 wizard_walk
   rotate: false
-  xy: 104, 36
+  xy: 368, 36
   size: 32, 64
   orig: 32, 64
   offset: 0, 0

@@ -14,9 +14,9 @@ import io.github.illuminatijoe.spellsandmagicks.util.ZIndex;
 public class FireballShootingSystem extends IteratingSystem {
     private final ComponentMapper<PositionComponent> positionMapper = ComponentMapper.getFor(PositionComponent.class);
 
-    public float cooldown = 1f;
+    public float cooldown = 0.1f;
     public float cooldownTimer = 0f;
-    public float damage = 50f;
+    public float damage = 55f;
 
     public FireballShootingSystem() {
         super(Family.all(ControllableComponent.class, PositionComponent.class).get());
@@ -58,7 +58,7 @@ public class FireballShootingSystem extends IteratingSystem {
     }
 
     public void upgrade() {
-        this.cooldown *= 0.85f;
+        this.cooldown *= 0.82f;
         this.damage *= 1.3f;
     }
 }

@@ -8,12 +8,16 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import io.github.illuminatijoe.spellsandmagicks.game.entities.Bat;
+import io.github.illuminatijoe.spellsandmagicks.game.entities.Boulder;
 import io.github.illuminatijoe.spellsandmagicks.game.entities.Player;
 import io.github.illuminatijoe.spellsandmagicks.game.entities.Slime;
 import io.github.illuminatijoe.spellsandmagicks.game.entities.components.AttackComponent;
 import io.github.illuminatijoe.spellsandmagicks.game.entities.components.ControllableComponent;
 import io.github.illuminatijoe.spellsandmagicks.game.entities.components.HealthComponent;
 import io.github.illuminatijoe.spellsandmagicks.game.entities.components.PositionComponent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EntitySpawnerSystem extends IteratingSystem {
     private final OrthographicCamera camera;
@@ -55,6 +59,35 @@ public class EntitySpawnerSystem extends IteratingSystem {
     }
 
     public void spawnEntity(Entity entity, float v) {
+
+
+        List<Entity> entitiesToSpawn = getEntityAccordingToWave();
+        for (Entity entityToSpawn : entitiesToSpawn) {
+            healthMapper.get(entityToSpawn).maxHealth *= difficultyFactor;
+            healthMapper.get(entityToSpawn).health = healthMapper.get(entityToSpawn).maxHealth;
+            attackMapper.get(entityToSpawn).damage *= difficultyFactor;
+            getEngine().addEntity(entityToSpawn);
+        }
+    }
+
+    private List<Entity> getEntityAccordingToWave() {
+        List<Entity> entityList = new ArrayList<>();
+        int lastWaveNumber = (int) (wave % 10);
+
+        if (lastWaveNumber % 3 == 0 || lastWaveNumber % 4 == 0) { // Waves *3, *4, *6, *8, *9
+             entityList.add(new Bat(player, getRandomOffScreenPosVector(player)));
+        }
+        if (lastWaveNumber % 2 == 1 || (lastWaveNumber % 10 <= 3)) { // Waves *1, *3, *5, *7, *9
+            entityList.add(new Slime(player, getRandomOffScreenPosVector(player)));
+        }
+        if (lastWaveNumber % 5 == 0 || lastWaveNumber % 6 == 0) { // Waves *5, *6
+            entityList.add(new Boulder(player, getRandomOffScreenPosVector(player)));
+        }
+
+        return entityList;
+    }
+
+    private Vector2 getRandomOffScreenPosVector(Entity entity) {
         PositionComponent positionComponent = pm.get(entity);
         Vector2 pos = positionComponent.getPosition();
 
@@ -67,21 +100,7 @@ public class EntitySpawnerSystem extends IteratingSystem {
         float downY = pos.y - yOffset;
 
         float margin = 50f;
-        Vector2 offScreenPos = getRandomOffScreenPosition(leftX, rightX, downY, upY, margin);
-
-        Entity entityToSpawn = getEntityAccordingToWave(offScreenPos);
-        healthMapper.get(entityToSpawn).maxHealth *= difficultyFactor;
-        healthMapper.get(entityToSpawn).health = healthMapper.get(entityToSpawn).maxHealth;
-        attackMapper.get(entityToSpawn).damage *= difficultyFactor;
-        getEngine().addEntity(entityToSpawn);
-    }
-
-    private Entity getEntityAccordingToWave(Vector2 offScreenPos) {
-        if ((wave % 10) >= 5 && wave % 2 == 1) { // Waves *5, *7 and *9
-            return new Bat(player, offScreenPos);
-        } else {
-            return new Slime(player, offScreenPos); // Waves *1-*4, *6, *8 and *0
-        }
+        return getRandomOffScreenPosition(leftX, rightX, downY, upY, margin);
     }
 
     public Vector2 getRandomOffScreenPosition(float leftX, float rightX, float downY, float upY, float margin) {

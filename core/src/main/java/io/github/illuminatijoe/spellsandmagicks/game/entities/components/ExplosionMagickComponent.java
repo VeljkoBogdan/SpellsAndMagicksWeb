@@ -12,6 +12,6 @@ public class ExplosionMagickComponent implements Component {
     }
 
     public void upgrade() {
-        this.damage *= 1.25f;
+        this.damage *= 1.3f;
     }
 }

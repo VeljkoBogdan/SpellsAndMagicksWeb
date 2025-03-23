@@ -4,7 +4,7 @@ import com.badlogic.ashley.core.Component;
 
 public class ToxipoolPoolComponent implements Component {
     public float lifetime = 3f;
-    public float cooldown = 0.5f;
+    public float cooldown = 1f;
     public float cooldownTimer = 0f;
 
     public ToxipoolPoolComponent(float lifetime) {

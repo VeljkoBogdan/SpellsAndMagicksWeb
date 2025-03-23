@@ -14,7 +14,7 @@ public class PoisonMagickComponent implements Component {
     }
 
     public void upgrade() {
-        this.damage *= 1.25f;
-        this.duration *= 1.25f;
+        this.damage *= 1.35f;
+        this.duration *= 1.2f;
     }
 }
