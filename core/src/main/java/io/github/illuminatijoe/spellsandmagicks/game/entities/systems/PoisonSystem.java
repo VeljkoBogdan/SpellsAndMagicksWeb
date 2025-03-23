@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import io.github.illuminatijoe.spellsandmagicks.game.entities.components.ExperienceComponent;
 import io.github.illuminatijoe.spellsandmagicks.game.entities.components.HealthComponent;
 import io.github.illuminatijoe.spellsandmagicks.game.entities.components.PoisonFlashComponent;
 import io.github.illuminatijoe.spellsandmagicks.game.entities.components.PoisonedComponent;
@@ -23,6 +24,15 @@ public class PoisonSystem extends IteratingSystem {
 
         if (poisonedComponent.shouldDealDamage(v)) {
             healthComponent.decreaseHealth(poisonedComponent.amount);
+
+            if (healthComponent.isDead) {
+                ExperienceComponent xpComponent = getEngine()
+                    .getEntitiesFor(Family.one(ExperienceComponent.class).get())
+                    .first()
+                    .getComponent(ExperienceComponent.class);
+                xpComponent.addXp(25);
+            }
+
             entity.add(new PoisonFlashComponent());
         }
 

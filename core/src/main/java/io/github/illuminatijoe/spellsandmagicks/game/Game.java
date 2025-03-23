@@ -62,6 +62,7 @@ public class Game implements Disposable {
         engine.addSystem(new PlayerControllerSystem());
         engine.addSystem(new CameraSystem(camera));
 
+        engine.addEntity(player);
         entitySpawnerSystem = new EntitySpawnerSystem(camera, player);
         engine.addSystem(entitySpawnerSystem);
 
@@ -76,7 +77,6 @@ public class Game implements Disposable {
         engine.addSystem(new DamageFlashSystem());
         engine.addSystem(new PoisonFlashSystem());
 
-        engine.addEntity(player);
     }
 
     public void render() {
@@ -87,7 +87,7 @@ public class Game implements Disposable {
 
     public void playerKilled() {
         engine.removeAllEntities();
-        Gdx.app.exit();
+        gameScreen.gameOver();
     }
 
     @Override

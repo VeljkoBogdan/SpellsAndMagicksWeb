@@ -6,22 +6,23 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import io.github.illuminatijoe.spellsandmagicks.game.entities.components.AnimationComponent;
-import io.github.illuminatijoe.spellsandmagicks.game.entities.components.ControllableComponent;
-import io.github.illuminatijoe.spellsandmagicks.game.entities.components.VelocityComponent;
+import io.github.illuminatijoe.spellsandmagicks.game.entities.components.*;
 
 public class PlayerControllerSystem extends IteratingSystem {
     private final ComponentMapper<VelocityComponent> vm = ComponentMapper.getFor(VelocityComponent.class);
     private final ComponentMapper<AnimationComponent> am = ComponentMapper.getFor(AnimationComponent.class);
+    private final ComponentMapper<SpeedComponent> speedMapper = ComponentMapper.getFor(SpeedComponent.class);
 
     public PlayerControllerSystem() {
-        super(Family.all(AnimationComponent.class, VelocityComponent.class, ControllableComponent.class).get());
+        super(Family.all(AnimationComponent.class, VelocityComponent.class, ControllableComponent.class,
+            SpeedComponent.class, PlayerComponent.class).get());
     }
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
         VelocityComponent velocityComponent = vm.get(entity);
         AnimationComponent animationComponent = am.get(entity);
+        SpeedComponent speedComponent = speedMapper.get(entity);
 
         velocityComponent.velocity.set(0, 0); // Reset velocity before applying movement
 
@@ -42,6 +43,6 @@ public class PlayerControllerSystem extends IteratingSystem {
 
         animationComponent.idle = velocityComponent.velocity.isZero();
 
-        velocityComponent.velocity.nor().scl(300); // Normalize so diagonal movement isn't faster
+        velocityComponent.velocity.nor().scl(speedComponent.speed); // Normalize so diagonal movement isn't faster
     }
 }

@@ -7,6 +7,7 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import io.github.illuminatijoe.spellsandmagicks.game.entities.Bat;
 import io.github.illuminatijoe.spellsandmagicks.game.entities.Player;
 import io.github.illuminatijoe.spellsandmagicks.game.entities.Slime;
 import io.github.illuminatijoe.spellsandmagicks.game.entities.components.AttackComponent;
@@ -24,6 +25,7 @@ public class EntitySpawnerSystem extends IteratingSystem {
     public float spawnRate = 1f;
     public float difficultyFactor = 1f;
     public float currentTime = 0f;
+    public float wave = 1f;
 
     public EntitySpawnerSystem(OrthographicCamera camera, Player player) {
         super(Family.all(PositionComponent.class, ControllableComponent.class).get());
@@ -42,8 +44,14 @@ public class EntitySpawnerSystem extends IteratingSystem {
     }
 
     public void increaseDifficulty() {
-        spawnRate *= 0.85f;
-        difficultyFactor *= 1.15f;
+        wave++;
+        if (wave % 5 == 0) {
+            spawnRate *= 0.8f;
+            difficultyFactor *= 1.2f;
+        } else {
+            spawnRate *= 0.85f;
+            difficultyFactor *= 1.15f;
+        }
     }
 
     public void spawnEntity(Entity entity, float v) {
@@ -61,12 +69,19 @@ public class EntitySpawnerSystem extends IteratingSystem {
         float margin = 50f;
         Vector2 offScreenPos = getRandomOffScreenPosition(leftX, rightX, downY, upY, margin);
 
-        Slime slime = new Slime(player, offScreenPos);
-        healthMapper.get(slime).maxHealth *= difficultyFactor;
-        healthMapper.get(slime).health = healthMapper.get(slime).maxHealth;
-        attackMapper.get(slime).damage *= difficultyFactor;
+        Entity entityToSpawn = getEntityAccordingToWave(offScreenPos);
+        healthMapper.get(entityToSpawn).maxHealth *= difficultyFactor;
+        healthMapper.get(entityToSpawn).health = healthMapper.get(entityToSpawn).maxHealth;
+        attackMapper.get(entityToSpawn).damage *= difficultyFactor;
+        getEngine().addEntity(entityToSpawn);
+    }
 
-        getEngine().addEntity(slime);
+    private Entity getEntityAccordingToWave(Vector2 offScreenPos) {
+        if ((wave % 10) >= 5 && wave % 2 == 1) { // Waves *5, *7 and *9
+            return new Bat(player, offScreenPos);
+        } else {
+            return new Slime(player, offScreenPos); // Waves *1-*4, *6, *8 and *0
+        }
     }
 
     public Vector2 getRandomOffScreenPosition(float leftX, float rightX, float downY, float upY, float margin) {

@@ -36,7 +36,7 @@ public class MainMenuScreen implements Screen {
     }
 
     private void updateUI() {
-        stage.clear(); // Clear previous UI elements
+        stage.clear();
 
         float x = Gdx.graphics.getWidth() / 2f - 200;
         TextButton playButton = createButton(gameScreen == null ? "Play" : "Resume", x, Gdx.graphics.getHeight() / 2f - 50, new ClickListener() {
@@ -77,7 +77,7 @@ public class MainMenuScreen implements Screen {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
-        updateUI(); // Ensure UI is updated when returning to the menu
+        updateUI();
     }
 
     @Override

@@ -24,4 +24,8 @@ public class SpellsAndMagicksGame extends Game {
         bitmapFont.dispose();
         super.dispose();
     }
+
+    public void gameOver() {
+        setScreen(new MainMenuScreen(this));
+    }
 }

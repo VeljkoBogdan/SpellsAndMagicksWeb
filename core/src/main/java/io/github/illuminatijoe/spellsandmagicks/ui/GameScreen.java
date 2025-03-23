@@ -126,4 +126,8 @@ public class GameScreen implements Screen {
     public void resumeGame() {
         gameLogic.paused = false;
     }
+
+    public void gameOver() {
+        this.game.gameOver();
+    }
 }

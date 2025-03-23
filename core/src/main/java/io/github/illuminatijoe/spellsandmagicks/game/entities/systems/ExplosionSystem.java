@@ -2,10 +2,8 @@ package io.github.illuminatijoe.spellsandmagicks.game.entities.systems;
 
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;
-import io.github.illuminatijoe.spellsandmagicks.game.entities.components.EnemyComponent;
-import io.github.illuminatijoe.spellsandmagicks.game.entities.components.ExplosionComponent;
-import io.github.illuminatijoe.spellsandmagicks.game.entities.components.HealthComponent;
-import io.github.illuminatijoe.spellsandmagicks.game.entities.components.PositionComponent;
+import io.github.illuminatijoe.spellsandmagicks.game.entities.Player;
+import io.github.illuminatijoe.spellsandmagicks.game.entities.components.*;
 
 public class ExplosionSystem extends EntitySystem {
     private ImmutableArray<Entity> entities;
@@ -32,6 +30,15 @@ public class ExplosionSystem extends EntitySystem {
 
                     if (isWithinRange(explosionPos, enemyPos, explosion.radius)) {
                         health.decreaseHealth(explosion.damage);
+
+                        if (health.isDead) {
+                            ExperienceComponent xpComponent = getEngine()
+                                .getEntitiesFor(Family.one(ExperienceComponent.class).get())
+                                .first()
+                                .getComponent(ExperienceComponent.class);
+                            xpComponent.addXp(25);
+                        }
+
                         hasDamagedAnyone = true;
                     }
                 }

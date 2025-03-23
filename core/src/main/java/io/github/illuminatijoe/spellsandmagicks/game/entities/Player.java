@@ -23,5 +23,6 @@ public class Player extends Entity {
         this.add(new SpellComponent());
         this.add(new ZIndexComponent(ZIndex.PLAYER));
         this.add(new RegenComponent(4f, 2f));
+        this.add(new SpeedComponent(200f));
     }
 }

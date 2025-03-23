@@ -5,6 +5,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+// import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 
 public class AssetLoader {
     private static final AssetManager assetManager = new AssetManager();
@@ -18,6 +19,7 @@ public class AssetLoader {
     public static Animation<TextureRegion> toxipoolPoolAnimation;
     public static Animation<TextureRegion> electricityAuraAnimation;
     public static Animation<TextureRegion> explosionAnimation;
+    public static Animation<TextureRegion> batAnimation;
 
     private AssetLoader() {
         // Private constructor to prevent instantiation
@@ -80,12 +82,17 @@ public class AssetLoader {
             projectileAtlas.findRegions("explosion"),
             Animation.PlayMode.NORMAL
         );
+        batAnimation = new Animation<>(
+            0.15f,
+            entityAtlas.findRegions("bat"),
+            Animation.PlayMode.LOOP
+        );
 
         System.out.println("Loaded animations!");
     }
 
     private static void createAtlases() {
-        // packTextures();
+        //packTextures();
         entityAtlas = new TextureAtlas("textures/entities/entities.atlas");
         projectileAtlas = new TextureAtlas("textures/projectiles/projectiles.atlas");
         System.out.println("Atlases created!");
